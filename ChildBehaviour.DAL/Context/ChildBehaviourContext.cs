@@ -13,6 +13,12 @@ namespace ChildBehaviour.DAL.Context
     {
         public DbSet<Behaviour> Behaviour { get; set; }
         public DbSet<Symptom> Symptom { get; set; }
+        public DbSet<BehaviourRecommendations> BehaviourRecommendations { get; set; }
+        public DbSet<BehaviourSymptoms> BehaviourSymptoms { get; set; }
+        public DbSet<ChildAssement> ChildAssement { get; set; }
+        public DbSet<Pupil> Pupil { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<Recommendation> Recommendation { get; set; }
         public ChildBehaviourContext(DbContextOptions<ChildBehaviourContext> options) : base(options)
         {
 
@@ -31,7 +37,7 @@ namespace ChildBehaviour.DAL.Context
             {
                 y.Property("CreatedDate").IsModified = false;
                 y.Property("UpdatedDate").CurrentValue = DateTime.Now;
-             
+
             });
             return base.SaveChangesAsync(cancellationToken);
         }
