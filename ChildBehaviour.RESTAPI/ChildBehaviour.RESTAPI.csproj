@@ -21,4 +21,8 @@
     <ProjectReference Include="..\ChildBehaviour.DAL\ChildBehaviour.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
