@@ -25,7 +25,7 @@ namespace ChildBehaviour.DAL.Repositories
             var entity = new Pupil
             {
                 Name = pupil.FirstName,
-                ParentId = pupil.Parent.Id,
+                ParentId = pupil.ParentId,
                 Surname = pupil.Surname,
                 DOB = pupil.DOB
             };
