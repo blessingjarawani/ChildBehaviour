@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ChildBehaviour.BLL.Responses
 {
-    public class Response : IResponse
+    public  class Response : IResponse
     {
         public string Message { get; }
 

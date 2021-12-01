@@ -9,7 +9,7 @@ namespace ChildBehaviour.BLL.Abstracts.Repositories
 {
     public interface IBehaviourRespository
     {
-        Task<IEnumerable<BehaviourDto>> Get(int? id);
+        Task<IEnumerable<BehaviourDto>> Get(int? id = null);
         Task<int> Add(BehaviourDto behaviourDto);
         Task<IEnumerable<BehaviourDto>> GetBehaviourRecommendations(int id);
         Task<int> Update(BehaviourDto behaviourDto);

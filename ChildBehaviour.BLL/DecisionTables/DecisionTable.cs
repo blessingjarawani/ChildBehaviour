@@ -11,7 +11,7 @@ namespace ChildBehaviour.BLL.DecisionTables
 
         private List<Symptom> _conditions = new List<Symptom>();
         private List<Rule> _rules = new List<Rule>();
-        public ISymptom NewCondition(SymptomDto symptom)
+        public ISymptom AddQuestionareSymptoms(SymptomDto symptom)
         {
             if (null == symptom)
                 throw new ArgumentNullException("predicate");

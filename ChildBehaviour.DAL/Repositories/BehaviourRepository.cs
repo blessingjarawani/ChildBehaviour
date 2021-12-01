@@ -20,7 +20,7 @@ namespace ChildBehaviour.DAL.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<BehaviourDto>> Get(int? id)
+        public async Task<IEnumerable<BehaviourDto>> Get(int? id = null)
         {
             var query = _context.Behaviour.Where(t => t.IsActive).AsQueryable();
             if (id.HasValue)

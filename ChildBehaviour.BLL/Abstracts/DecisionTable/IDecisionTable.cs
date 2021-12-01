@@ -8,6 +8,6 @@ namespace ChildBehaviour.BLL.Abstracts.DecisionTable
     {
         void AddRule(BehaviourDto behaviour);
         List<IResponse> Execute();
-        ISymptom NewCondition(SymptomDto symptom);
+        ISymptom AddQuestionareSymptoms(SymptomDto symptom);
     }
 }
