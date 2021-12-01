@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace ChildBehaviour.BLL.DTOs
 {
-    public class BehaviourDto
+    public class RecommendationDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<SymptomDto> Symptoms { get; set; }
-        public List<RecommendationDto> Recommendations { get; set; }
     }
 }

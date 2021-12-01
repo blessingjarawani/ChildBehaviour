@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace ChildBehaviour.BLL.DTOs
 {
-    public class BehaviourDto
+    public class BehaviourRecommandationsDto
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<SymptomDto> Symptoms { get; set; }
+        public int BehaviourId { get; set; }
         public List<RecommendationDto> Recommendations { get; set; }
     }
 }
+

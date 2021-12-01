@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChildBehaviour.BLL.Abstracts.Dictionaries;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace ChildBehaviour.DAL.Entities
         [Required]
         [StringLength(200)]
         public string Password { get; set; }
-
-        public List<>
+        public UserRoles userRole { get; set; }
+        public List<Pupil> Pupils { get; set; }
     }
 }
