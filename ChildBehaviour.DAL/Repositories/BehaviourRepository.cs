@@ -22,8 +22,7 @@ namespace ChildBehaviour.DAL.Repositories
 
         public async Task<IEnumerable<BehaviourDto>> Get(int? id)
         {
-            var query = _context.Behaviour.Include(t => t.BehaviourSymptoms)
-                .ThenInclude(t => t.Symptom).Where(t => t.IsActive).AsQueryable();
+            var query = _context.Behaviour.Where(t => t.IsActive).AsQueryable();
             if (id.HasValue)
             {
                 query = query.Where(t => t.Id == id);
@@ -46,7 +45,6 @@ namespace ChildBehaviour.DAL.Repositories
         {
             var entity = new Behaviour
             {
-                Id = behaviourDto.Id,
                 Name = behaviourDto.Name
             };
             await _context.Behaviour.AddAsync(entity);
@@ -116,6 +114,16 @@ namespace ChildBehaviour.DAL.Repositories
                 await _context.BehaviourRecommendations.AddAsync(entity);
             }
             await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveExcludedRange(List<int> ids)
+        {
+            var entitiesToRemove = _context.Behaviour.Where(t => !ids.Contains(t.Id));
+            if (entitiesToRemove.Any())
+            {
+                _context.Behaviour.RemoveRange(entitiesToRemove);
+                await _context.SaveChangesAsync();
+            }
         }
 
     }
