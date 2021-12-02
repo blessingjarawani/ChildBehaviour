@@ -7,6 +7,6 @@ namespace ChildBehaviour.BLL.Abstracts.Services
 {
     public interface IDiagnosisService
     {
-        Task<IResponse> Execute(List<SymptomDto> symptoms);
+        Task<IBaseResponse> Execute(List<SymptomDto> symptoms);
     }
 }

@@ -66,33 +66,33 @@ namespace ChildBehaviour.BLL.Services
             }
         }
 
-        public async Task<IResponse> Execute(List<SymptomDto> symptoms)
+        public async Task<IBaseResponse> Execute(List<SymptomDto> symptoms)
         {
             try
             {
                 var result = await AddQuestionnareSymptoms(symptoms);
                 if (!result)
                 {
-                    return Response.CreateFailure("Failure on Pasing Symptoms");
+                    return BaseResponse.CreateFailure("Failure on Pasing Symptoms");
                 }
                 var addBehavioursResult = await AddBehaviours();
                 if (!addBehavioursResult)
                 {
-                    return Response.CreateFailure("Failure on Pasing Rules");
+                    return BaseResponse.CreateFailure("Failure on Pasing Rules");
                 }
                 var diagnosisResult = _decisionTable.Execute();
                 if (diagnosisResult.Any(t => t.Success))
                 {
-                    return Response.CreateSuccess("Found");
+                    return BaseResponse.CreateSuccess("Found");
                 }
 
-                return Response.CreateFailure("No Matching Behaviour Found Please try to Select other Conditions");
+                return BaseResponse.CreateFailure("No Matching Behaviour Found Please try to Select other Conditions");
 
             }
             catch (Exception ex)
             {
 
-                return Response.CreateFailure(ex.GetBaseException().Message);
+                return BaseResponse.CreateFailure(ex.GetBaseException().Message);
             }
         }
 

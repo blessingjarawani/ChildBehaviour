@@ -24,9 +24,9 @@ namespace ChildBehaviour.BLL.DecisionTables
         {
             _rules.Add(new Rule(behaviour));
         }
-        public List<IResponse> Execute()
+        public List<IBaseResponse> Execute()
         {
-            var result = new List<IResponse>();
+            var result = new List<IBaseResponse>();
             _rules.ForEach(r =>
             {
                 result.Add(r.Execute(_conditions));

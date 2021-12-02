@@ -18,23 +18,23 @@ namespace ChildBehaviour.BLL.DecisionTables
         {
             _behavior = behaviour;
         }
-        public IResponse Execute(IEnumerable<Symptom> symptoms)
+        public IBaseResponse Execute(IEnumerable<Symptom> symptoms)
         {
             if (!AllConditionsMet())
             {
-                return Response.CreateFailure($"No Symptoms Found on {_behavior.Name}");
+                return BaseResponse.CreateFailure($"No Symptoms Found on {_behavior.Name}");
             }
             if (!(symptoms?.Any() ?? false))
             {
-                return Response.CreateFailure($"No Symptoms Selected");
+                return BaseResponse.CreateFailure($"No Symptoms Selected");
             }
             var matchedSymptomsCount = _behavior.Symptoms.Where(x => symptoms.Any(t => t._Symptom.Id == x.Id)).Count();
             var percentageMatch = matchedSymptomsCount / 100;
             if (percentageMatch >= MIN_PERCENTAGE)
             {
-                return Response.CreateSuccess($"{_behavior.Name} ; {percentageMatch}");
+                return BaseResponse.CreateSuccess($"{_behavior.Name} ; {percentageMatch}");
             }
-            return Response.CreateFailure("Does Not Match");
+            return BaseResponse.CreateFailure("Does Not Match");
         }
         private bool AllConditionsMet()
         {

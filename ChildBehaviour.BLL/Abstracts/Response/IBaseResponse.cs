@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace ChildBehaviour.BLL.Abstracts.Response
 {
-    public interface IResponse <T>
+    public interface IBaseResponse
     {
-        T Data { get; }
+        string Message { get; }
+        bool Success { get; }
     }
 }

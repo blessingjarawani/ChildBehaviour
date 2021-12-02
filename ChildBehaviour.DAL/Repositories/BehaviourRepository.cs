@@ -63,7 +63,7 @@ namespace ChildBehaviour.DAL.Repositories
             return -1;
         }
 
-        public async Task<List<BehaviourDto>> GetBehaviourSymptoms(int id)
+        public async Task<IEnumerable<BehaviourDto>> GetBehaviourSymptoms(int id)
             => await _context.Behaviour.Include(t => t.BehaviourSymptoms)
                .ThenInclude(t => t.Symptom).Where(t => t.IsActive && t.Id == id).Select(t => new BehaviourDto
                {

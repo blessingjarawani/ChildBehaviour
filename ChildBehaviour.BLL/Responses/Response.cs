@@ -7,26 +7,30 @@ using System.Threading.Tasks;
 
 namespace ChildBehaviour.BLL.Responses
 {
-    public  class Response : IResponse
+    public class Response<T> : IBaseResponse, IResponse<T>
     {
+        public T Data { get; }
         public string Message { get; }
 
         public bool Success { get; }
-
-        private Response(string message, bool success)
+        private Response(T data)
         {
+            Data = data;
+            Success = false;
+        }
+
+        private Response(string message)
+        {
+
             Message = message;
-            Success = success;
+            Success = false;
         }
+        public static Response<T> CreateSuccess(T data)
+           => new Response<T>(data);
 
-        public static Response CreateSuccess(string message)
-        {
-            return new Response(message, success: true);
-        }
 
-        public static Response CreateFailure(string message)
-        {
-            return new Response(message, success: false);
-        }
+        public static Response<T> CreateFailure(string message)
+            => new Response<T>(message);
+
     }
 }

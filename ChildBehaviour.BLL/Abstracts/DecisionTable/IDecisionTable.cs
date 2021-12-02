@@ -7,7 +7,7 @@ namespace ChildBehaviour.BLL.Abstracts.DecisionTable
     public interface IDecisionTable
     {
         void AddRule(BehaviourDto behaviour);
-        List<IResponse> Execute();
+        List<IBaseResponse> Execute();
         ISymptom AddQuestionareSymptoms(SymptomDto symptom);
     }
 }
