@@ -5,8 +5,6 @@ using ChildBehaviour.BLL.DTOs;
 using ChildBehaviour.BLL.Responses;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ChildBehaviour.BLL.Services
