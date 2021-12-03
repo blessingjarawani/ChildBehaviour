@@ -16,6 +16,9 @@ namespace ChildBehaviour.BLL.Abstracts.Repositories
         Task AddBehaviourRecommendations(BehaviourDto behaviour);
         Task<IEnumerable<BehaviourDto>> GetBehaviourSymptoms(int id);
         Task AddBehaviourSymptoms(BehaviourDto behaviour);
-       
+        Task RemoveExcludedRangeSymptoms(IEnumerable<int> ids, int behaviourId);
+        Task RemoveExcludedRangeRecommendations(IEnumerable<int> ids, int behaviourId);
+
+
     }
 }

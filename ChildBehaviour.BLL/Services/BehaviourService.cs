@@ -65,6 +65,46 @@ namespace ChildBehaviour.BLL.Services
             }
         }
 
+        public async Task<IBaseResponse> AddBehaviourRecommendations(BehaviourDto behaviour)
+        {
+            try
+            {
+                if (behaviour != null && behaviour.Id > 0 && ((behaviour.Recommendations?.Any()) ?? false))
+                {
+                    await _behaviourRepository.AddBehaviourRecommendations(behaviour);
+                    await _behaviourRepository.RemoveExcludedRangeRecommendations(behaviour.Recommendations.Select(t => t.Id), behaviour.Id);
+                    BaseResponse.CreateSuccess("Added Successfully");
+
+                }
+                return BaseResponse.CreateFailure("Ivalid Object Passed");
+            }
+            catch (Exception ex)
+            {
+
+                return BaseResponse.CreateFailure(ex.GetBaseException().Message);
+            }
+        }
+
+        public async Task<IBaseResponse> AddBehaviourSymptoms(BehaviourDto behaviour)
+        {
+            try
+            {
+                if (behaviour != null && behaviour.Id > 0 && ((behaviour.Symptoms?.Any()) ?? false))
+                {
+                    await _behaviourRepository.AddBehaviourRecommendations(behaviour);
+                    await _behaviourRepository.RemoveExcludedRangeSymptoms(behaviour.Symptoms.Select(t => t.Id), behaviour.Id);
+                    BaseResponse.CreateSuccess("Added Successfully");
+
+                }
+                return BaseResponse.CreateFailure("Ivalid Object Passed");
+            }
+            catch (Exception ex)
+            {
+
+                return BaseResponse.CreateFailure(ex.GetBaseException().Message);
+            }
+        }
+
 
     }
 }
