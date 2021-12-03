@@ -38,7 +38,7 @@ namespace ChildBehaviour.BLL.Services
                         {
                             result = await _behaviourRepository.Add(behaviour);
                         }
-                        return result > 0 ? BaseResponse.CreateSuccess("Added Successfully") : BaseResponse.CreateFailure(DB_SAVE_ERROR);
+                        return result >= 0 ? BaseResponse.CreateSuccess("Added Successfully") : BaseResponse.CreateFailure(DB_SAVE_ERROR);
                     }
 
                 }
