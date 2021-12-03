@@ -13,7 +13,7 @@ namespace ChildBehaviour.BLL.Responses
 
         public bool Success { get; }
 
-        private BaseResponse(string message = null, bool success)
+        private BaseResponse(bool success, string message = null)
         {
             Message = message;
             Success = success;
@@ -23,12 +23,12 @@ namespace ChildBehaviour.BLL.Responses
         public static BaseResponse CreateSuccess(string message = null)
         {
 
-            return new BaseResponse(message, success: true);
+            return new BaseResponse(success: true, message);
         }
 
         public static BaseResponse CreateFailure(string message)
         {
-            return new BaseResponse(message, success: false);
+            return new BaseResponse(success: false, message);
         }
     }
 }

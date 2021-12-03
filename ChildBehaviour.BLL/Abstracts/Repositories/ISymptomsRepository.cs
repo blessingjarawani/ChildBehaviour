@@ -12,7 +12,7 @@ namespace ChildBehaviour.BLL.Abstracts.Repositories
         Task<IEnumerable<SymptomDto>> Get(int? id);
         Task<int> Add(SymptomDto symptom);
         Task<int> Update(SymptomDto symptom);
-        Task RemoveExcludedRange(List<int> ids);
+        Task DeleteRange(IEnumerable<int> ids);
 
     }
 }

@@ -11,23 +11,23 @@ using System.Threading.Tasks;
 
 namespace ChildBehaviour.DAL.Repositories
 {
-    public class SymptomsRepository : ISymptomsRepository
+    public class RecommendationRespository : IRecommendationRespository
     {
         private readonly ChildBehaviourContext _context;
 
-        public SymptomsRepository(ChildBehaviourContext context)
+        public RecommendationRespository(ChildBehaviourContext context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<SymptomDto>> Get(int? id)
+        public async Task<IEnumerable<RecommendationDto>> Get(int? id)
         {
-            var query = _context.Symptom.Where(t => t.IsActive).AsQueryable();
+            var query = _context.Recommendation.Where(t => t.IsActive).AsQueryable();
             if (id.HasValue)
             {
                 query = query.Where(t => t.Id == id);
             }
-            return await query.Select(t => new SymptomDto
+            return await query.Select(t => new RecommendationDto
             {
                 Id = t.Id,
                 Name = t.Name,
@@ -35,22 +35,22 @@ namespace ChildBehaviour.DAL.Repositories
         }
 
 
-        public async Task<int> Add(SymptomDto symptom)
+        public async Task<int> Add(RecommendationDto recommendation)
         {
-            var entity = new Symptom
+            var entity = new Recommendation
             {
-                Name = symptom.Name
+                Name = recommendation.Name
             };
-            await _context.Symptom.AddAsync(entity);
+            await _context.Recommendation.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity.Id;
         }
-        public async Task<int> Update(SymptomDto symptom)
+        public async Task<int> Update(RecommendationDto recommendation)
         {
-            var entity = _context.Symptom.FirstOrDefault(x => x.Id == symptom.Id);
+            var entity = _context.Recommendation.FirstOrDefault(x => x.Id == recommendation.Id);
             if (entity != null)
             {
-                entity.Name = symptom.Name;
+                entity.Name = recommendation.Name;
                 return await _context.SaveChangesAsync();
             }
             return -1;
@@ -58,10 +58,10 @@ namespace ChildBehaviour.DAL.Repositories
 
         public async Task DeleteRange(IEnumerable<int> ids)
         {
-            var entitiesToRemove = _context.Symptom.Where(t => ids.Contains(t.Id));
+            var entitiesToRemove = _context.Recommendation.Where(t => ids.Contains(t.Id));
             if (entitiesToRemove.Any())
             {
-                _context.Symptom.RemoveRange(entitiesToRemove);
+                _context.Recommendation.RemoveRange(entitiesToRemove);
                 await _context.SaveChangesAsync();
             }
         }

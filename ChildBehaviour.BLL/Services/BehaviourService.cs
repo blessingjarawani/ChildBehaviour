@@ -14,7 +14,6 @@ namespace ChildBehaviour.BLL.Services
     public class BehaviourService : IBehaviourService
     {
         private readonly IBehaviourRespository _behaviourRepository;
-        private const string DB_SAVE_ERROR = "Failed to Save to DB";
         public BehaviourService(IBehaviourRespository behaviourRepository)
         {
             _behaviourRepository = behaviourRepository;
@@ -38,9 +37,9 @@ namespace ChildBehaviour.BLL.Services
                         {
                             result = await _behaviourRepository.Add(behaviour);
                         }
-                        return result >= 0 ? BaseResponse.CreateSuccess("Added Successfully") : BaseResponse.CreateFailure(DB_SAVE_ERROR);
-                    }
 
+                    }
+                    return BaseResponse.CreateSuccess("Added Successfully");
                 }
                 return BaseResponse.CreateFailure("Passes null object");
             }
@@ -91,7 +90,7 @@ namespace ChildBehaviour.BLL.Services
             {
                 if (behaviour != null && behaviour.Id > 0 && ((behaviour.Symptoms?.Any()) ?? false))
                 {
-                    await _behaviourRepository.AddBehaviourRecommendations(behaviour);
+                    await _behaviourRepository.AddBehaviourSymptoms(behaviour);
                     await _behaviourRepository.RemoveExcludedRangeSymptoms(behaviour.Symptoms.Select(t => t.Id), behaviour.Id);
                     BaseResponse.CreateSuccess("Added Successfully");
 

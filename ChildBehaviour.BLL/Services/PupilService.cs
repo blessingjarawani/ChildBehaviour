@@ -37,8 +37,9 @@ namespace ChildBehaviour.BLL.Services
                         {
                             result = await _pupilRepository.Add(pupil);
                         }
-                        return result >= 0 ? BaseResponse.CreateSuccess("Added Successfully") : BaseResponse.CreateFailure(DB_SAVE_ERROR);
                     }
+
+                    return BaseResponse.CreateSuccess("Added Successfully");
 
                 }
                 return BaseResponse.CreateFailure("Passes null object");
