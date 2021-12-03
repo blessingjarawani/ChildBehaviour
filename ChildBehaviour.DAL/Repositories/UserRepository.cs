@@ -63,5 +63,16 @@ namespace ChildBehaviour.DAL.Repositories
                          Id = x.Id,
                          Surname = x.Surname
                      }).ToListAsync();
+
+        public async Task<UserDto> Login(UserDto user)
+         => await _context.User.Where(x => x.UserName == user.UserName && x.Password == user.Password)
+            .Select(x => new UserDto
+            {
+                LastName = x.Surname,
+                UserName = x.UserName,
+                UserRole = x.UserRole,
+                FirstName = x.Name,
+                Id = x.Id
+            }).FirstOrDefaultAsync();
     }
 }
