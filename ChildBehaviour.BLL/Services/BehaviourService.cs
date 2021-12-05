@@ -96,8 +96,9 @@ namespace ChildBehaviour.BLL.Services
             {
                 if (behaviour != null && behaviour.Id > 0 && ((behaviour.Recommendations?.Any()) ?? false))
                 {
+                    await _behaviourRepository.RemoveExcludedRangeRecommendations(behaviour.Id);
                     await _behaviourRepository.AddBehaviourRecommendations(behaviour);
-                    await _behaviourRepository.RemoveExcludedRangeRecommendations(behaviour.Recommendations.Select(t => t.Id), behaviour.Id);
+
                     return BaseResponse.CreateSuccess("Added Successfully");
 
                 }
@@ -116,8 +117,9 @@ namespace ChildBehaviour.BLL.Services
             {
                 if (behaviour != null && behaviour.Id > 0 && ((behaviour.Symptoms?.Any()) ?? false))
                 {
+                    await _behaviourRepository.RemoveExcludedRangeSymptoms(behaviour.Id);
                     await _behaviourRepository.AddBehaviourSymptoms(behaviour);
-                    await _behaviourRepository.RemoveExcludedRangeSymptoms(behaviour.Symptoms.Select(t => t.Id), behaviour.Id);
+
                     return BaseResponse.CreateSuccess("Added Successfully");
 
                 }

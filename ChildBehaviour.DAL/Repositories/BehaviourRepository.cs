@@ -118,20 +118,20 @@ namespace ChildBehaviour.DAL.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task RemoveExcludedRangeRecommendations(IEnumerable<int> ids, int behaviourId)
+        public async Task RemoveExcludedRangeRecommendations(int behaviourId)
         {
-            var entitiesToRemove = _context.BehaviourRecommendations.Where(t => !ids.Contains(t.Id) && t.BehaviourId == behaviourId);
-            if (entitiesToRemove.Any())
+            var entitiesToRemove = _context.BehaviourRecommendations.Where(t => t.BehaviourId == behaviourId);
+            if (entitiesToRemove?.Any() ?? false)
             {
                 _context.BehaviourRecommendations.RemoveRange(entitiesToRemove);
                 await _context.SaveChangesAsync();
             }
         }
 
-        public async Task RemoveExcludedRangeSymptoms(IEnumerable<int> ids, int behaviourId)
+        public async Task RemoveExcludedRangeSymptoms(int behaviourId)
         {
-            var entitiesToRemove = _context.BehaviourSymptoms.Where(t => !ids.Contains(t.Id) && t.BehaviourId == behaviourId);
-            if (entitiesToRemove.Any())
+            var entitiesToRemove = _context.BehaviourSymptoms.Where(t => t.BehaviourId == behaviourId);
+            if (entitiesToRemove?.Any() ?? false)
             {
                 _context.BehaviourSymptoms.RemoveRange(entitiesToRemove);
                 await _context.SaveChangesAsync();
