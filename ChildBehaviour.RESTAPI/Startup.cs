@@ -48,11 +48,17 @@ namespace ChildBehaviour.RESTAPI
             services.AddScoped<IPupilRespository, PupilRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISymptomsRepository, SymptomsRepository>();
+            services.AddScoped<IRecommendationRespository, RecommendationRespository>();
         }
         private void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped<IDecisionTable, DecisionTable>();
-            services.AddScoped<IDiagnosisService, DiagnosisService>();
+            services.AddTransient<IDecisionTable, DecisionTable>();
+            services.AddTransient<IDiagnosisService, DiagnosisService>();
+            services.AddTransient<IRecommendationService, RecommendationService>();
+            services.AddTransient<IPupilService, PupilService>();
+            services.AddTransient<ISymptomsService, SymptomsService>();
+            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IBehaviourService, BehaviourService>();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

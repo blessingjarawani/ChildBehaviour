@@ -46,7 +46,7 @@ namespace ChildBehaviour.BLL.Services
             }
         }
 
-        private async Task<bool> AddQuestionnareSymptoms(List<SymptomDto> symptoms)
+        private async Task<bool> AddQuestionnareSymptoms(IEnumerable<SymptomDto> symptoms)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace ChildBehaviour.BLL.Services
             }
         }
 
-        public async Task<IBaseResponse> Execute(List<SymptomDto> symptoms)
+        public async Task<IBaseResponse> Execute(IEnumerable<SymptomDto> symptoms)
         {
             try
             {

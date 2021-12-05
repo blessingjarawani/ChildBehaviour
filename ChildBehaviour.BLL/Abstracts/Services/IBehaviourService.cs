@@ -14,5 +14,7 @@ namespace ChildBehaviour.BLL.Abstracts.Services
         Task<IResponse<IEnumerable<BehaviourDto>>> GetBehaviourSymptoms(int id);
         Task<IBaseResponse> AddBehaviourRecommendations(BehaviourDto behaviour);
         Task<IBaseResponse> AddBehaviourSymptoms(BehaviourDto behaviour);
+        Task<IResponse<IEnumerable<BehaviourDto>>> GetBehaviours(int id);
+        Task<IResponse<IEnumerable<BehaviourDto>>> GetBehaviourRecommendations(int id);
     }
 }

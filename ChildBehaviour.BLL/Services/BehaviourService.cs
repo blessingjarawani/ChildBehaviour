@@ -51,11 +51,37 @@ namespace ChildBehaviour.BLL.Services
 
         }
 
+        public async Task<IResponse<IEnumerable<BehaviourDto>>> GetBehaviours(int id)
+        {
+            try
+            {
+                var result = await _behaviourRepository.Get(id);
+                return Response<IEnumerable<BehaviourDto>>.CreateSuccess(result);
+            }
+            catch (Exception ex)
+            {
+                return Response<IEnumerable<BehaviourDto>>.CreateFailure(ex.GetBaseException().Message);
+            }
+        }
+
         public async Task<IResponse<IEnumerable<BehaviourDto>>> GetBehaviourSymptoms(int id)
         {
             try
             {
                 var result = await _behaviourRepository.GetBehaviourSymptoms(id);
+                return Response<IEnumerable<BehaviourDto>>.CreateSuccess(result);
+            }
+            catch (Exception ex)
+            {
+                return Response<IEnumerable<BehaviourDto>>.CreateFailure(ex.GetBaseException().Message);
+            }
+        }
+
+        public async Task<IResponse<IEnumerable<BehaviourDto>>> GetBehaviourRecommendations(int id)
+        {
+            try
+            {
+                var result = await _behaviourRepository.GetBehaviourRecommendations(id);
                 return Response<IEnumerable<BehaviourDto>>.CreateSuccess(result);
             }
             catch (Exception ex)
@@ -72,7 +98,7 @@ namespace ChildBehaviour.BLL.Services
                 {
                     await _behaviourRepository.AddBehaviourRecommendations(behaviour);
                     await _behaviourRepository.RemoveExcludedRangeRecommendations(behaviour.Recommendations.Select(t => t.Id), behaviour.Id);
-                    BaseResponse.CreateSuccess("Added Successfully");
+                    return BaseResponse.CreateSuccess("Added Successfully");
 
                 }
                 return BaseResponse.CreateFailure("Ivalid Object Passed");
@@ -92,10 +118,10 @@ namespace ChildBehaviour.BLL.Services
                 {
                     await _behaviourRepository.AddBehaviourSymptoms(behaviour);
                     await _behaviourRepository.RemoveExcludedRangeSymptoms(behaviour.Symptoms.Select(t => t.Id), behaviour.Id);
-                    BaseResponse.CreateSuccess("Added Successfully");
+                    return BaseResponse.CreateSuccess("Added Successfully");
 
                 }
-                return BaseResponse.CreateFailure("Ivalid Object Passed");
+                return BaseResponse.CreateFailure("Invalid Object Passed");
             }
             catch (Exception ex)
             {

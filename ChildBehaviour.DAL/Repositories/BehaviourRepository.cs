@@ -23,7 +23,7 @@ namespace ChildBehaviour.DAL.Repositories
         public async Task<IEnumerable<BehaviourDto>> Get(int? id = null)
         {
             var query = _context.Behaviour.Where(t => t.IsActive).AsQueryable();
-            if (id.HasValue)
+            if (id.HasValue && id.Value > 0)
             {
                 query = query.Where(t => t.Id == id);
             }
@@ -97,6 +97,7 @@ namespace ChildBehaviour.DAL.Repositories
                 {
                     BehaviourId = behaviour.Id,
                     SymptomId = symptom.Id,
+                    Name = "---"
                 };
                 await _context.BehaviourSymptoms.AddAsync(entity);
             }
@@ -110,6 +111,7 @@ namespace ChildBehaviour.DAL.Repositories
                 {
                     BehaviourId = behaviour.Id,
                     RecommendationId = recommendations.Id,
+                    Name = "---"
                 };
                 await _context.BehaviourRecommendations.AddAsync(entity);
             }
@@ -118,7 +120,7 @@ namespace ChildBehaviour.DAL.Repositories
 
         public async Task RemoveExcludedRangeRecommendations(IEnumerable<int> ids, int behaviourId)
         {
-            var entitiesToRemove = _context.BehaviourRecommendations.Where(t => !ids.Contains(t.Id) && t.BehaviourId == behaviourId );
+            var entitiesToRemove = _context.BehaviourRecommendations.Where(t => !ids.Contains(t.Id) && t.BehaviourId == behaviourId);
             if (entitiesToRemove.Any())
             {
                 _context.BehaviourRecommendations.RemoveRange(entitiesToRemove);
