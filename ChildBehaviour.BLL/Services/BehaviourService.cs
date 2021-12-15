@@ -69,6 +69,19 @@ namespace ChildBehaviour.BLL.Services
             try
             {
                 var result = await _behaviourRepository.GetBehaviourSymptoms(id);
+                var excludedSymptoms = await _behaviourRepository.GetExcludedBehaviourSymptoms(result.SelectMany(t => t.Symptoms.Select(t => t.Id)));
+                if (result == null)
+                {
+                    result = new List<BehaviourDto>();
+                }
+                if (excludedSymptoms.Any())
+                {
+                    var behavior = new BehaviourDto
+                    {
+                        Symptoms = excludedSymptoms.ToList(),
+                    };
+                    result.Add(behavior);
+                }
                 return Response<IEnumerable<BehaviourDto>>.CreateSuccess(result);
             }
             catch (Exception ex)
@@ -117,7 +130,7 @@ namespace ChildBehaviour.BLL.Services
             {
                 if (behaviour != null && behaviour.Id > 0 && ((behaviour.Symptoms?.Any()) ?? false))
                 {
-                   await _behaviourRepository.AddBehaviourSymptoms(behaviour);
+                    await _behaviourRepository.AddBehaviourSymptoms(behaviour);
 
                     return BaseResponse.CreateSuccess("Added Successfully");
 

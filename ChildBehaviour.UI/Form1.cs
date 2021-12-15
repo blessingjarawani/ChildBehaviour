@@ -16,11 +16,15 @@ namespace ChildBehaviour.UI
     {
         private readonly CurrentUser _currentUser;
         private readonly IConfigTab _configTab;
-        public FrmMain(IConfigTab configTab ,CurrentUser user = null)
+        private readonly ITabCommons _tabCommons;
+        private readonly IDecisionTableTab _decisionTableTab;
+        public FrmMain(IConfigTab configTab , ITabCommons tabCommons, IDecisionTableTab decisionTableTab, CurrentUser user = null)
         {
             InitializeComponent();
             _currentUser = user;
             _configTab = configTab;
+            _tabCommons = tabCommons;
+            _decisionTableTab = decisionTableTab;
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -48,6 +52,49 @@ namespace ChildBehaviour.UI
         private void dgridConfigs_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (tabControl1.SelectedIndex)
+            {
+
+                case 1:
+                    {
+                        //Your Changes
+                        break;
+                    }
+                case 2:
+                    {
+                        //Your Changes 
+                        break;
+                    }
+                case 3:
+                    {
+                        _tabCommons.LoadBehaviours(cboDecisionBehaviorSelect);
+                        break;
+                    }
+                    default:
+                    break;
+            }
+        }
+
+        private void cboDecisionBehaviorSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedIndex = (cboDecisionBehaviorSelect.SelectedItem as ComboboxItem)?.Value ?? 0;
+            if (selectedIndex > 0)
+            {
+                _decisionTableTab.LoadBehaviourSymptoms(selectedIndex, dgridDecisionTable);
+            }
+        }
+
+        private void btnDecisionTabSave_Click(object sender, EventArgs e)
+        {
+            var selectedIndex = (cboDecisionBehaviorSelect.SelectedItem as ComboboxItem)?.Value ?? 0;
+            if (selectedIndex > 0)
+            {
+                _decisionTableTab.AddOrUpdateDecisionTable(selectedIndex, dgridDecisionTable);
+            }
         }
     }
 }

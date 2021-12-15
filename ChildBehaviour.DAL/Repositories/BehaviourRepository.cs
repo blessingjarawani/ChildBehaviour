@@ -32,13 +32,7 @@ namespace ChildBehaviour.DAL.Repositories
             {
                 Id = t.Id,
                 Name = t.Name,
-                IsActive = t.IsActive,
-                Symptoms = t.BehaviourSymptoms.Select(x => new SymptomDto
-                {
-                    Id = x.Symptom.Id,
-                    Name = x.Symptom.Name,
-                    IsActive = x.Symptom.IsActive
-                }).ToList()
+                IsActive = t.IsActive
             }).ToListAsync();
 
         }
@@ -67,7 +61,7 @@ namespace ChildBehaviour.DAL.Repositories
             return -1;
         }
 
-        public async Task<IEnumerable<BehaviourDto>> GetBehaviourSymptoms(int id)
+        public async Task<List<BehaviourDto>> GetBehaviourSymptoms(int id)
             => await _context.Behaviour.Include(t => t.BehaviourSymptoms)
                .ThenInclude(t => t.Symptom).Where(t => t.Id == id).Select(t => new BehaviourDto
                {
@@ -80,6 +74,15 @@ namespace ChildBehaviour.DAL.Repositories
                        IsActive = x.IsActive
                    }).ToList()
                }).ToListAsync();
+
+        public async Task<IEnumerable<SymptomDto>> GetExcludedBehaviourSymptoms(IEnumerable<int> symptomsId)
+       => await _context.Symptom.Where(t => !symptomsId.Contains(t.Id))
+       .Select(t => new SymptomDto
+       {
+           Id = t.Id,
+           Name = t.Name,
+           IsActive = false
+       }).ToListAsync();
 
         public async Task<IEnumerable<BehaviourDto>> GetBehaviourRecommendations(int id)
              => await _context.Behaviour.Include(t => t.BehaviourRecommendations)

@@ -40,6 +40,8 @@ namespace ChildBehaviour.UI
             serviceCollection.AddScoped<FrmLogin>();
             serviceCollection.AddScoped<CurrentUser>();
             serviceCollection.AddTransient<IConfigTab, ConfigTab>();
+            serviceCollection.AddTransient<ITabCommons, TabCommons>();
+            serviceCollection.AddTransient<IDecisionTableTab, DecisionTableTab>();
         }
     }
 }

@@ -14,10 +14,11 @@ namespace ChildBehaviour.BLL.Abstracts.Repositories
         Task<IEnumerable<BehaviourDto>> GetBehaviourRecommendations(int id);
         Task<int> Update(BehaviourDto behaviourDto);
         Task AddBehaviourRecommendations(BehaviourDto behaviour);
-        Task<IEnumerable<BehaviourDto>> GetBehaviourSymptoms(int id);
+        Task<List<BehaviourDto>> GetBehaviourSymptoms(int id);
         Task AddBehaviourSymptoms(BehaviourDto behaviour);
         Task RemoveExcludedRangeSymptoms(int behaviourId);
         Task RemoveExcludedRangeRecommendations(int behaviourId);
+        Task<IEnumerable<SymptomDto>> GetExcludedBehaviourSymptoms(IEnumerable<int> symptomsId);
 
 
     }

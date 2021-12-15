@@ -15,12 +15,16 @@ namespace ChildBehaviour.UI
         private readonly HttpClient _client;
         private readonly CurrentUser _currentUser;
         private readonly IConfigTab _configTab;
-        public FrmLogin(IConfigTab configTab, CurrentUser currentUser)
+        private readonly ITabCommons _tabCommons;
+        private readonly IDecisionTableTab _decisionTableTab;
+        public FrmLogin(IConfigTab configTab, ITabCommons tabCommons, IDecisionTableTab decisionTableTab, CurrentUser currentUser)
         {
             InitializeComponent();
             _client = new ApiClient().InitClient();
             _currentUser = currentUser;
             _configTab = configTab;
+            _tabCommons = tabCommons;
+            _decisionTableTab = decisionTableTab;
 
         }
 
@@ -72,7 +76,7 @@ namespace ChildBehaviour.UI
                 }
                 currentUser.Set(user.Data);
                 this.Hide();
-                var frmMain = new FrmMain(_configTab,currentUser);
+                var frmMain = new FrmMain(_configTab, _tabCommons, _decisionTableTab, currentUser);
                 frmMain.Show();
 
             }
