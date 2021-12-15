@@ -10,6 +10,7 @@ namespace ChildBehaviour.BLL.DTOs
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool IsActive { get; set; }
         public List<SymptomDto> Symptoms { get; set; }
         public List<RecommendationDto> Recommendations { get; set; }
     }

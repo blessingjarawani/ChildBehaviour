@@ -21,6 +21,10 @@ namespace ChildBehaviour.RESTAPI.Controllers
         [HttpPost("[action]")]
         public async Task<IBaseResponse> AddOrUpdate([FromBody] IEnumerable<RecommendationDto> recommendations)
             => await _recommendationService.AddOrUpdate(recommendations);
-      
+
+        [HttpGet("GetRecommendations")]
+        public async Task<IResponse<IEnumerable<RecommendationDto>>> GetRecommendations([FromQuery] int id)
+           => await _recommendationService.Get(id);
+
     }
 }

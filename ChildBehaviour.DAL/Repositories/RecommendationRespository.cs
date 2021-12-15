@@ -23,7 +23,7 @@ namespace ChildBehaviour.DAL.Repositories
         public async Task<IEnumerable<RecommendationDto>> Get(int? id)
         {
             var query = _context.Recommendation.AsQueryable();
-            if (id.HasValue)
+            if (id.HasValue && id.Value > 0)
             {
                 query = query.Where(t => t.Id == id);
             }
@@ -41,7 +41,7 @@ namespace ChildBehaviour.DAL.Repositories
             var entity = new Recommendation
             {
                 Name = recommendation.Name,
-                IsActive = true
+                IsActive = recommendation.IsActive
             };
             await _context.Recommendation.AddAsync(entity);
             await _context.SaveChangesAsync();

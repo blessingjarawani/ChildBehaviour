@@ -22,8 +22,10 @@ namespace ChildBehaviour.RESTAPI.Controllers
         public async Task<IBaseResponse> AddOrUpdate([FromBody] IEnumerable<SymptomDto> symptoms) =>
             await _symptomsService.AddOrUpdate(symptoms);
 
-        [HttpPost("[action]")]
-        public async Task<IBaseResponse> DeleteRange([FromBody] IEnumerable<int> ids) =>
-            await _symptomsService.DeleteRange(ids);
+
+        [HttpGet("GetSymptoms")]
+        public async Task<IResponse<IEnumerable<SymptomDto>>> GetSymptoms([FromQuery] int id)
+           => await _symptomsService.Get(id);
+
     }
 }

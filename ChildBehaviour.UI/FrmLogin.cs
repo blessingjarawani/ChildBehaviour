@@ -1,6 +1,7 @@
 ﻿
 using ChildBehaviour.BLL.DTOs;
 using ChildBehaviour.UI.Models;
+using ChildBehaviour.UI.Tabs.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -13,11 +14,13 @@ namespace ChildBehaviour.UI
     {
         private readonly HttpClient _client;
         private readonly CurrentUser _currentUser;
-        public FrmLogin(CurrentUser currentUser)
+        private readonly IConfigTab _configTab;
+        public FrmLogin(IConfigTab configTab, CurrentUser currentUser)
         {
             InitializeComponent();
             _client = new ApiClient().InitClient();
             _currentUser = currentUser;
+            _configTab = configTab;
 
         }
 
@@ -69,7 +72,7 @@ namespace ChildBehaviour.UI
                 }
                 currentUser.Set(user.Data);
                 this.Hide();
-                var frmMain = new FrmMain(currentUser);
+                var frmMain = new FrmMain(_configTab,currentUser);
                 frmMain.Show();
 
             }

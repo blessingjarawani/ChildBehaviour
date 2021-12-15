@@ -50,7 +50,19 @@ namespace ChildBehaviour.BLL.Services
             }
         }
 
-      
+        public async Task<Response<IEnumerable<RecommendationDto>>> Get(int? id)
+        {
+            try
+            {
+                var result = await _recommendationRepository.Get(id);
+                return Response<IEnumerable<RecommendationDto>>.CreateSuccess(result);
+            }
+            catch (Exception ex)
+            {
+
+                return Response<IEnumerable<RecommendationDto>>.CreateFailure(ex.GetBaseException().Message);
+            }
+        }
     }
 
 

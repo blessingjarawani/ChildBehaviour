@@ -22,8 +22,8 @@ namespace ChildBehaviour.DAL.Repositories
 
         public async Task<IEnumerable<SymptomDto>> Get(int? id)
         {
-            var query = _context.Symptom.Where(t => t.IsActive).AsQueryable();
-            if (id.HasValue)
+            var query = _context.Symptom.AsQueryable();
+            if (id.HasValue && id.Value > 0)
             {
                 query = query.Where(t => t.Id == id);
             }
@@ -31,6 +31,7 @@ namespace ChildBehaviour.DAL.Repositories
             {
                 Id = t.Id,
                 Name = t.Name,
+                IsActive = t.IsActive
             }).ToListAsync();
         }
 
@@ -39,7 +40,8 @@ namespace ChildBehaviour.DAL.Repositories
         {
             var entity = new Symptom
             {
-                Name = symptom.Name
+                Name = symptom.Name,
+                IsActive = symptom.IsActive,
             };
             await _context.Symptom.AddAsync(entity);
             await _context.SaveChangesAsync();
@@ -51,6 +53,7 @@ namespace ChildBehaviour.DAL.Repositories
             if (entity != null)
             {
                 entity.Name = symptom.Name;
+                entity.IsActive = symptom.IsActive;
                 return await _context.SaveChangesAsync();
             }
             return -1;

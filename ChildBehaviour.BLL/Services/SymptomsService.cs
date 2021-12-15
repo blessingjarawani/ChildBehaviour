@@ -50,22 +50,17 @@ namespace ChildBehaviour.BLL.Services
                 return BaseResponse.CreateFailure(ex.GetBaseException().Message);
             }
         }
-
-        public async Task<IBaseResponse> DeleteRange(IEnumerable<int> ids)
+        public async Task<Response<IEnumerable<SymptomDto>>> Get(int? id)
         {
             try
             {
-                if (ids?.Any() ?? false)
-                {
-                    await _symptomsRepository.DeleteRange(ids);
-                    return BaseResponse.CreateSuccess("Deleted Sucessfully");
-                }
-                return BaseResponse.CreateFailure("No Ids Passed");
-
+                var result = await _symptomsRepository.Get(id);
+                return Response<IEnumerable<SymptomDto>>.CreateSuccess(result);
             }
             catch (Exception ex)
             {
-                return BaseResponse.CreateFailure(ex.GetBaseException().Message);
+
+                return Response<IEnumerable<SymptomDto>>.CreateFailure(ex.GetBaseException().Message);
             }
         }
     }

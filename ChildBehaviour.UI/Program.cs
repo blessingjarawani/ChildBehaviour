@@ -1,4 +1,6 @@
 using ChildBehaviour.UI.Models;
+using ChildBehaviour.UI.Tabs;
+using ChildBehaviour.UI.Tabs.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -33,10 +35,11 @@ namespace ChildBehaviour.UI
 
         private static void ConfigureServices(IServiceCollection serviceCollection)
         {
-            
+
             serviceCollection.AddOptions();
             serviceCollection.AddScoped<FrmLogin>();
             serviceCollection.AddScoped<CurrentUser>();
+            serviceCollection.AddTransient<IConfigTab, ConfigTab>();
         }
     }
 }
