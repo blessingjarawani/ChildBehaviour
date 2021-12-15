@@ -16,7 +16,7 @@ namespace ChildBehaviour.BLL.Responses
         private Response(T data)
         {
             Data = data;
-            Success = false;
+            Success = true;
         }
 
         private Response(string message)

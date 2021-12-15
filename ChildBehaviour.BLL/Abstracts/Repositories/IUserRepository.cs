@@ -13,6 +13,6 @@ namespace ChildBehaviour.BLL.Abstracts.Repositories
         Task<int> Add(UserDto user);
         Task<int> Update(UserDto user);
         Task<IEnumerable<PupilDto>> GetParentPupils(int userId);
-        public Task<UserDto> Login(UserDto user);
+        public Task<UserDto> Login(LoginDto user);
     }
 }

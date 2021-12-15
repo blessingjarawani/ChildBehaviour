@@ -117,8 +117,7 @@ namespace ChildBehaviour.BLL.Services
             {
                 if (behaviour != null && behaviour.Id > 0 && ((behaviour.Symptoms?.Any()) ?? false))
                 {
-                    await _behaviourRepository.RemoveExcludedRangeSymptoms(behaviour.Id);
-                    await _behaviourRepository.AddBehaviourSymptoms(behaviour);
+                   await _behaviourRepository.AddBehaviourSymptoms(behaviour);
 
                     return BaseResponse.CreateSuccess("Added Successfully");
 

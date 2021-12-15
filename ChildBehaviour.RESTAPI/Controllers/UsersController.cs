@@ -30,6 +30,6 @@ namespace ChildBehaviour.RESTAPI.Controllers
         public async Task<IBaseResponse> UpdateUser([FromBody] UserDto user) => await _usersService.UpdateUser(user);
 
         [HttpPost("[action]")]
-        public async Task<IResponse<UserDto>> Login([FromBody] UserDto user) => await _usersService.Login(user);
+        public async Task<IResponse<UserDto>> Login([FromBody] LoginDto user) => await _usersService.Login(user);
     }
 }

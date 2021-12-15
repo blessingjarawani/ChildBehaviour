@@ -9,7 +9,7 @@ namespace ChildBehaviour.BLL.Abstracts.Services
     {
         Task<IBaseResponse> AddNew(UserDto user);
         Task<IResponse<IEnumerable<PupilDto>>> GetParentPupils(int userId);
-        Task<IResponse<UserDto>> Login(UserDto user);
+        Task<IResponse<UserDto>> Login(LoginDto user);
         Task<IBaseResponse> UpdateUser(UserDto user);
     }
 }

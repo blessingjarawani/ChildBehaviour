@@ -21,8 +21,6 @@ namespace ChildBehaviour.RESTAPI.Controllers
         [HttpPost("[action]")]
         public async Task<IBaseResponse> AddOrUpdate([FromBody] IEnumerable<RecommendationDto> recommendations)
             => await _recommendationService.AddOrUpdate(recommendations);
-        [HttpPost("[action]")]
-        public async Task<IBaseResponse> DeleteRange([FromBody] IEnumerable<int> ids) =>
-           await _recommendationService.DeleteRange(ids);
+      
     }
 }

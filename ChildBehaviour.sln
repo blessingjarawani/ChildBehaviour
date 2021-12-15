@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildBehaviour.DAL", "Child
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildBehaviour.BLL", "ChildBehaviour.BLL\ChildBehaviour.BLL.csproj", "{C8734153-B549-488A-957F-C8CCB812871F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildBehaviour.RESTAPI", "ChildBehaviour.RESTAPI\ChildBehaviour.RESTAPI.csproj", "{FE4E1E4E-7DBD-47E7-A03B-2D0970335B5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChildBehaviour.RESTAPI", "ChildBehaviour.RESTAPI\ChildBehaviour.RESTAPI.csproj", "{FE4E1E4E-7DBD-47E7-A03B-2D0970335B5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildBehaviour.UI", "ChildBehaviour.UI\ChildBehaviour.UI.csproj", "{40B4ED64-82E3-48E1-B64F-AC8935EA2CAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{FE4E1E4E-7DBD-47E7-A03B-2D0970335B5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE4E1E4E-7DBD-47E7-A03B-2D0970335B5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE4E1E4E-7DBD-47E7-A03B-2D0970335B5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40B4ED64-82E3-48E1-B64F-AC8935EA2CAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40B4ED64-82E3-48E1-B64F-AC8935EA2CAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40B4ED64-82E3-48E1-B64F-AC8935EA2CAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40B4ED64-82E3-48E1-B64F-AC8935EA2CAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

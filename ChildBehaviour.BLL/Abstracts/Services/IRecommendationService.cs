@@ -8,6 +8,5 @@ namespace ChildBehaviour.BLL.Abstracts.Services
     public interface IRecommendationService
     {
         Task<IBaseResponse> AddOrUpdate(IEnumerable<RecommendationDto> recommendations);
-        Task<IBaseResponse> DeleteRange(IEnumerable<int> ids);
     }
 }

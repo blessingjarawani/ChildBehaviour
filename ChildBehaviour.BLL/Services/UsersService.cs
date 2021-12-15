@@ -76,7 +76,7 @@ namespace ChildBehaviour.BLL.Services
                 return BaseResponse.CreateFailure(ex.GetBaseException().Message);
             }
         }
-        public async Task<IResponse<UserDto>> Login(UserDto user)
+        public async Task<IResponse<UserDto>> Login(LoginDto user)
         {
             try
             {

@@ -65,14 +65,15 @@ namespace ChildBehaviour.DAL.Repositories
 
         public async Task<IEnumerable<BehaviourDto>> GetBehaviourSymptoms(int id)
             => await _context.Behaviour.Include(t => t.BehaviourSymptoms)
-               .ThenInclude(t => t.Symptom).Where(t => t.IsActive && t.Id == id).Select(t => new BehaviourDto
+               .ThenInclude(t => t.Symptom).Where(t => t.Id == id).Select(t => new BehaviourDto
                {
                    Id = t.Id,
                    Name = t.Name,
                    Symptoms = t.BehaviourSymptoms.Select(x => new SymptomDto
                    {
                        Id = x.Symptom.Id,
-                       Name = x.Symptom.Name
+                       Name = x.Symptom.Name,
+                       IsActive = x.IsActive
                    }).ToList()
                }).ToListAsync();
 
@@ -93,13 +94,22 @@ namespace ChildBehaviour.DAL.Repositories
         {
             foreach (var symptom in behaviour.Symptoms)
             {
-                var entity = new BehaviourSymptoms
+                var item = await _context.BehaviourSymptoms.FirstOrDefaultAsync(t => t.SymptomId == symptom.Id && t.BehaviourId == behaviour.Id);
+                if (item != null)
                 {
-                    BehaviourId = behaviour.Id,
-                    SymptomId = symptom.Id,
-                    Name = "---"
-                };
-                await _context.BehaviourSymptoms.AddAsync(entity);
+                    item.IsActive = symptom.IsActive;
+                }
+                else
+                {
+                    var entity = new BehaviourSymptoms
+                    {
+                        BehaviourId = behaviour.Id,
+                        SymptomId = symptom.Id,
+                        Name = "---",
+                        IsActive = symptom.IsActive
+                    };
+                    await _context.BehaviourSymptoms.AddAsync(entity);
+                }
             }
             await _context.SaveChangesAsync();
         }

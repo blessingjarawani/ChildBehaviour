@@ -22,7 +22,7 @@ namespace ChildBehaviour.DAL.Repositories
 
         public async Task<IEnumerable<RecommendationDto>> Get(int? id)
         {
-            var query = _context.Recommendation.Where(t => t.IsActive).AsQueryable();
+            var query = _context.Recommendation.AsQueryable();
             if (id.HasValue)
             {
                 query = query.Where(t => t.Id == id);
@@ -31,6 +31,7 @@ namespace ChildBehaviour.DAL.Repositories
             {
                 Id = t.Id,
                 Name = t.Name,
+                IsActive = t.IsActive
             }).ToListAsync();
         }
 
@@ -39,7 +40,8 @@ namespace ChildBehaviour.DAL.Repositories
         {
             var entity = new Recommendation
             {
-                Name = recommendation.Name
+                Name = recommendation.Name,
+                IsActive = true
             };
             await _context.Recommendation.AddAsync(entity);
             await _context.SaveChangesAsync();
@@ -51,20 +53,13 @@ namespace ChildBehaviour.DAL.Repositories
             if (entity != null)
             {
                 entity.Name = recommendation.Name;
+                entity.IsActive = recommendation.IsActive;
                 return await _context.SaveChangesAsync();
             }
             return -1;
         }
 
-        public async Task DeleteRange(IEnumerable<int> ids)
-        {
-            var entitiesToRemove = _context.Recommendation.Where(t => ids.Contains(t.Id));
-            if (entitiesToRemove.Any())
-            {
-                _context.Recommendation.RemoveRange(entitiesToRemove);
-                await _context.SaveChangesAsync();
-            }
-        }
+      
 
     }
 }

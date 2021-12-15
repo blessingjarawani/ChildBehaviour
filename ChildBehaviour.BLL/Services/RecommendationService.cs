@@ -50,23 +50,7 @@ namespace ChildBehaviour.BLL.Services
             }
         }
 
-        public async Task<IBaseResponse> DeleteRange(IEnumerable<int> ids)
-        {
-            try
-            {
-                if (ids?.Any() ?? false)
-                {
-                    await _recommendationRepository.DeleteRange(ids);
-                    return BaseResponse.CreateSuccess("Deleted Sucessfully");
-                }
-                return BaseResponse.CreateFailure("No Ids Passed");
-
-            }
-            catch (Exception ex)
-            {
-                return BaseResponse.CreateFailure(ex.GetBaseException().Message);
-            }
-        }
+      
     }
 
 
