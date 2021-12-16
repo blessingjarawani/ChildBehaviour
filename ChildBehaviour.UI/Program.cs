@@ -42,6 +42,9 @@ namespace ChildBehaviour.UI
             serviceCollection.AddTransient<IConfigTab, ConfigTab>();
             serviceCollection.AddTransient<ITabCommons, TabCommons>();
             serviceCollection.AddTransient<IDecisionTableTab, DecisionTableTab>();
+            serviceCollection.AddTransient<IRecommendationsTab, RecommendationsTab>();
+            serviceCollection.AddTransient<IPupilsTab, PupilsTab>();
+            serviceCollection.AddTransient<ICheckListTab, CheckListTab>();
         }
     }
 }

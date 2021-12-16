@@ -17,7 +17,11 @@ namespace ChildBehaviour.UI
         private readonly IConfigTab _configTab;
         private readonly ITabCommons _tabCommons;
         private readonly IDecisionTableTab _decisionTableTab;
-        public FrmLogin(IConfigTab configTab, ITabCommons tabCommons, IDecisionTableTab decisionTableTab, CurrentUser currentUser)
+        private readonly IRecommendationsTab _recommendationsTab;
+        private readonly IPupilsTab _pupilsTab;
+        private readonly ICheckListTab _checkListTab;
+        public FrmLogin(IConfigTab configTab, ITabCommons tabCommons, IDecisionTableTab decisionTableTab,
+            IRecommendationsTab recommendationsTab, IPupilsTab pupilsTab,ICheckListTab checkListTab, CurrentUser currentUser)
         {
             InitializeComponent();
             _client = new ApiClient().InitClient();
@@ -25,6 +29,9 @@ namespace ChildBehaviour.UI
             _configTab = configTab;
             _tabCommons = tabCommons;
             _decisionTableTab = decisionTableTab;
+            _recommendationsTab = recommendationsTab;
+            _pupilsTab = pupilsTab;
+            _checkListTab = checkListTab;
 
         }
 
@@ -76,7 +83,8 @@ namespace ChildBehaviour.UI
                 }
                 currentUser.Set(user.Data);
                 this.Hide();
-                var frmMain = new FrmMain(_configTab, _tabCommons, _decisionTableTab, currentUser);
+                var frmMain = new FrmMain(_configTab, _tabCommons, _decisionTableTab,
+                                          _recommendationsTab,_pupilsTab,_checkListTab, currentUser);
                 frmMain.Show();
 
             }

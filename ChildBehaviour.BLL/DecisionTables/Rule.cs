@@ -28,8 +28,13 @@ namespace ChildBehaviour.BLL.DecisionTables
             {
                 return BaseResponse.CreateFailure($"No Symptoms Selected");
             }
-            var matchedSymptomsCount = _behavior.Symptoms.Where(x => symptoms.Any(t => t._Symptom.Id == x.Id)).Count();
-            var percentageMatch = matchedSymptomsCount / 100;
+            var matchedSymptomsCount = _behavior.Symptoms.Where(x => symptoms.Any(t => t._Symptom.Id == x.Id && t._Symptom.IsActive == x.IsActive)).Count();
+            var behaviorSymptomsCount = _behavior?.Symptoms?.Count() > 0 ? _behavior.Symptoms.Count() : 1;
+            if (behaviorSymptomsCount == 0)
+            {
+                return BaseResponse.CreateFailure("Does Not Match");
+            }
+            var percentageMatch = (matchedSymptomsCount / _behavior.Symptoms.Count()) * 100;
             if (percentageMatch >= MIN_PERCENTAGE)
             {
                 return BaseResponse.CreateSuccess($"{_behavior.Name} ; {percentageMatch}");

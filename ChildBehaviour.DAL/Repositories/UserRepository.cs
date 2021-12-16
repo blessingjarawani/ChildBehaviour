@@ -61,7 +61,8 @@ namespace ChildBehaviour.DAL.Repositories
                          DOB = x.DOB,
                          FirstName = x.Name,
                          Id = x.Id,
-                         Surname = x.Surname
+                         Surname = x.Surname,
+                         IsActive = x.IsActive
                      }).ToListAsync();
 
         public async Task<UserDto> Login(LoginDto user)

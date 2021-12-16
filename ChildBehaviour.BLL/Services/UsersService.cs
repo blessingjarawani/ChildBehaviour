@@ -12,7 +12,7 @@ namespace ChildBehaviour.BLL.Services
     public class UsersService : IUsersService
     {
         private readonly IUserRepository _userRepository;
-
+      
         public UsersService(IUserRepository userRepository)
         {
             _userRepository = userRepository;

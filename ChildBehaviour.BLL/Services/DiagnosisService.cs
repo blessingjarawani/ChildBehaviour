@@ -38,7 +38,7 @@ namespace ChildBehaviour.BLL.Services
                         _decisionTable.AddRule(behaviour);
                     }
                 }
-                return false;
+                return true;
             }
             catch (Exception)
             {
@@ -57,7 +57,7 @@ namespace ChildBehaviour.BLL.Services
                         _decisionTable.AddQuestionareSymptoms(symptom);
                     }
                 }
-                return false;
+                return true;
             }
             catch (Exception)
             {

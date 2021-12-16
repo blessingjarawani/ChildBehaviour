@@ -95,6 +95,19 @@ namespace ChildBehaviour.BLL.Services
             try
             {
                 var result = await _behaviourRepository.GetBehaviourRecommendations(id);
+                var excludedRecommendations = await _behaviourRepository.GetExcludedBehaviourRecommendations(result.SelectMany(t => t.Recommendations.Select(t => t.Id)));
+                if (result == null)
+                {
+                    result = new List<BehaviourDto>();
+                }
+                if (excludedRecommendations.Any())
+                {
+                    var behavior = new BehaviourDto
+                    {
+                        Recommendations = excludedRecommendations.ToList(),
+                    };
+                    result.Add(behavior);
+                }
                 return Response<IEnumerable<BehaviourDto>>.CreateSuccess(result);
             }
             catch (Exception ex)
@@ -109,7 +122,7 @@ namespace ChildBehaviour.BLL.Services
             {
                 if (behaviour != null && behaviour.Id > 0 && ((behaviour.Recommendations?.Any()) ?? false))
                 {
-                    await _behaviourRepository.RemoveExcludedRangeRecommendations(behaviour.Id);
+                    
                     await _behaviourRepository.AddBehaviourRecommendations(behaviour);
 
                     return BaseResponse.CreateSuccess("Added Successfully");

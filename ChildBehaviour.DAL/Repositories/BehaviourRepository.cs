@@ -22,7 +22,7 @@ namespace ChildBehaviour.DAL.Repositories
 
         public async Task<IEnumerable<BehaviourDto>> Get(int? id = null)
         {
-            var query = _context.Behaviour.AsQueryable();
+            var query = _context.Behaviour.Include(t => t.BehaviourSymptoms).ThenInclude(t=>t.Symptom).AsQueryable();
             if (id.HasValue && id.Value > 0)
             {
                 query = query.Where(t => t.Id == id);
@@ -32,7 +32,12 @@ namespace ChildBehaviour.DAL.Repositories
             {
                 Id = t.Id,
                 Name = t.Name,
-                IsActive = t.IsActive
+                IsActive = t.IsActive,
+                Symptoms = t.BehaviourSymptoms.Select(x => new SymptomDto
+                {
+                    Id = x.Symptom.Id,
+                    IsActive = x.IsActive
+                }).ToList(),
             }).ToListAsync();
 
         }
@@ -84,16 +89,17 @@ namespace ChildBehaviour.DAL.Repositories
            IsActive = false
        }).ToListAsync();
 
-        public async Task<IEnumerable<BehaviourDto>> GetBehaviourRecommendations(int id)
-             => await _context.Behaviour.Include(t => t.BehaviourRecommendations)
+        public async Task<List<BehaviourDto>> GetBehaviourRecommendations(int id)
+             => await _context.Behaviour.Include(t => t.BehaviourRecommendations).ThenInclude(t => t.Recommendation)
                  .Where(t => t.IsActive && t.Id == id).Select(t => new BehaviourDto
                  {
                      Id = t.Id,
                      Name = t.Name,
                      Recommendations = t.BehaviourRecommendations.Select(x => new RecommendationDto
                      {
-                         Id = x.Id,
-                         Name = x.Name
+                         Id = x.Recommendation.Id,
+                         Name = x.Recommendation.Name,
+                         IsActive = x.IsActive
                      }).ToList()
                  }).ToListAsync();
 
@@ -124,36 +130,36 @@ namespace ChildBehaviour.DAL.Repositories
         {
             foreach (var recommendations in behaviour.Recommendations)
             {
-                var entity = new BehaviourRecommendations
+                var item = await _context.BehaviourRecommendations.FirstOrDefaultAsync(t => t.RecommendationId == recommendations.Id && t.BehaviourId == behaviour.Id);
+                if (item != null)
                 {
-                    BehaviourId = behaviour.Id,
-                    RecommendationId = recommendations.Id,
-                    Name = "---"
-                };
-                await _context.BehaviourRecommendations.AddAsync(entity);
+                    item.IsActive = recommendations.IsActive;
+                }
+                else
+                {
+                    var entity = new BehaviourRecommendations
+                    {
+                        BehaviourId = behaviour.Id,
+                        RecommendationId = recommendations.Id,
+                        Name = "---",
+                        IsActive = recommendations.IsActive
+                    };
+                    await _context.BehaviourRecommendations.AddAsync(entity);
+                }
+
             }
             await _context.SaveChangesAsync();
         }
 
-        public async Task RemoveExcludedRangeRecommendations(int behaviourId)
-        {
-            var entitiesToRemove = _context.BehaviourRecommendations.Where(t => t.BehaviourId == behaviourId);
-            if (entitiesToRemove?.Any() ?? false)
-            {
-                _context.BehaviourRecommendations.RemoveRange(entitiesToRemove);
-                await _context.SaveChangesAsync();
-            }
-        }
+        public async Task<IEnumerable<RecommendationDto>> GetExcludedBehaviourRecommendations(IEnumerable<int> recommendationdIds)
+          => await _context.Recommendation.Where(t => !recommendationdIds.Contains(t.Id))
+          .Select(t => new RecommendationDto
+          {
+              Id = t.Id,
+              Name = t.Name,
+              IsActive = false
+          }).ToListAsync();
 
-        public async Task RemoveExcludedRangeSymptoms(int behaviourId)
-        {
-            var entitiesToRemove = _context.BehaviourSymptoms.Where(t => t.BehaviourId == behaviourId);
-            if (entitiesToRemove?.Any() ?? false)
-            {
-                _context.BehaviourSymptoms.RemoveRange(entitiesToRemove);
-                await _context.SaveChangesAsync();
-            }
-        }
 
     }
 }

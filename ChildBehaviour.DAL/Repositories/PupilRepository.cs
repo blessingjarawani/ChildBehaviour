@@ -27,7 +27,8 @@ namespace ChildBehaviour.DAL.Repositories
                 Name = pupil.FirstName,
                 ParentId = pupil.ParentId,
                 Surname = pupil.Surname,
-                DOB = pupil.DOB
+                DOB = pupil.DOB,
+                IsActive = pupil.IsActive
             };
             await _context.AddAsync(entity);
             await _context.SaveChangesAsync();
@@ -42,10 +43,13 @@ namespace ChildBehaviour.DAL.Repositories
                 entity.Name = pupil.FirstName;
                 entity.Surname = pupil.Surname;
                 entity.DOB = pupil.DOB;
+                entity.IsActive = pupil.IsActive;
                 return await _context.SaveChangesAsync();
             }
             return -1;
         }
+
+
 
         public async Task<int> AddAssessment(ChildAssessmentDto childAssessment)
         {
@@ -85,6 +89,7 @@ namespace ChildBehaviour.DAL.Repositories
                                   });
         }
 
-
     }
+
 }
+
